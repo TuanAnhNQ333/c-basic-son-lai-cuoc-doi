@@ -16,5 +16,4 @@ if((fptr2 = fopen(filename2, "rb")) == NULL)
 num = fread(buff, sizeof(char), MAX_LEN, fptr2);
 buff[num * sizeof(char)] = '\0';
 printf("%s", buff);
-
 }
