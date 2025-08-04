@@ -20,7 +20,7 @@ void remove_newline(char str[]) {
 // Nếu có, hàm trả về 1 (true), nếu không thì trả về
 int is_match (char T[], char P1[], int pos, int lenP1) {
     for (int j = 0; j < lenP1; j ++) { // Duyệt qua từng ký tự của P1
-        // Kiểm tra xem ký tự tại vị trí pos + j trong T có bằng ký
+        // Kiểm tra xem ký tự tại vị trí pos + j trong T có bằng ký 
         if(T[pos + j] != P1[j]) { // Nếu không khớp
             return 0;
         }
