@@ -6,8 +6,8 @@
       "type": "lldb",
       "request": "launch",
       "args": [],
-      "cwd": "/Users/macbook/Documents/c basic",
-      "program": "/Users/macbook/Documents/c basic/build/Debug/outDebug"
+      "cwd": "/Users/macbook/Documents/main_code/c basic/w1 - array string pointer",
+      "program": "/Users/macbook/Documents/main_code/c basic/w1 - array string pointer/build/Debug/outDebug"
     }
   ]
 }
