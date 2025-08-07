@@ -1,0 +1,89 @@
+a b c d e f g h j k l m n o p q r s t u v w x y z
+
+Tập tin (file) cho phép lưu trữ thông tin lâu dài trong bộ nhớ ngoài.
+
+• Chương trình không chỉ nhập dữ liệu từ bàn phím, hiển thị dữ liệu trên màn hình mà còn có thể nhập dữ liệu từ tập tin, ghi dữ liệu ra tập tin.
+• Ngôn ngữ C cho phép giao tiếp với các tập tin thông qua một thực thể đặc biệt gọi là con trỏ (kiểu) file.
+• Các hàm đọc, ghi tập tin sử dụng con trỏ file là đối số.
+• Sau mỗi thao tác đọc/ghi, vị trí của con trỏ file sẽ thay đổi.
+• Khai báo: FILE *fptr;
+
+---
+
+Các thao tác cơ bản khi làm việc với tập tin
+
+• Mở tập tin
+• Đọc dữ liệu từ tập tin vào bộ nhớ chương trình (cụ thể là vào các biến)
+• Ghi (xuất) dữ liệu từ bộ nhớ chương trình ra tập tin
+• Đóng tập tin
+
+---
+
+File văn bản và File nhị phân
+
+• File văn bản:
+    - Có nội dung là văn bản chứa các ký tự nhìn thấy được.
+    - Có thể được tạo ra bằng các phần mềm thông dụng như Notepad, Notepad++, Sublime Text,…
+    - Thuận tiện trong việc sử dụng hàng ngày, nhưng kém bảo mật và cần nhiều bộ nhớ để lưu trữ hơn.
+
+• File nhị phân:
+    - Nội dung lưu trữ dưới dạng nhị phân (chuỗi 0 và 1).
+    - Bảo mật và tiết kiệm không gian lưu trữ hơn.
+
+---
+
+Mở tập tin
+
+• Sử dụng hàm fopen()
+• Nguyên mẫu: FILE *fopen(const char *filename, const char *mode);
+
+Ví dụ:
+FILE *fptr;
+if ((fptr = fopen("test.txt", "r")) == NULL) {
+        printf("Cannot open test.txt file.\n");
+        exit(1);
+}
+
+---
+
+Mở tập tin
+
+• filename: đường dẫn và tên tập tin.
+    - Nhận giá trị là một xâu ký tự: "data.txt"
+    - Có thể chứa đường dẫn đầy đủ tới tập tin: "/root/hedspi/CProgrammingBasic/Lab1/data.txt"
+    - Có thể dùng một biến mảng ký tự để lưu trữ: char file_name[] = "junk.txt";
+• Lưu ý: Nếu đường dẫn không được mô tả, tập tin mặc định nằm tại cùng thư mục chứa chương trình.
+
+---
+
+Các tham số mode cho tập tin văn bản
+
+| mode | Ý nghĩa |
+|------|--------|
+| "r"  | Mở một tập tin văn bản đã có chỉ để đọc. Nếu tập tin không tồn tại, fopen() trả về NULL. |
+| "w"  | Mở một tập tin văn bản chỉ để ghi. Nếu file đã tồn tại, nội dung sẽ bị ghi đè. Nếu file không tồn tại, nó sẽ được tạo tự động. |
+| "a"  | Mở một tập tin văn bản đã có để ghi thêm vào cuối. |
+| "r+" | Mở một tập tin văn bản đã có cho phép cả đọc và ghi. Nếu tập tin không tồn tại, fopen() trả về NULL. |
+| "w+" | Mở file văn bản cho phép cả đọc và ghi. |
+| "a+" | Mở file văn bản cho phép cả đọc và ghi (append). |
+
+---
+
+Các tham số mode cho tập tin nhị phân
+
+| mode  | Ý nghĩa |
+|-------|--------|
+| "rb"  | Mở tập tin nhị phân đã có chỉ để đọc. |
+| "wb"  | Mở tập tin nhị phân chỉ để ghi. |
+| "ab"  | Mở tập tin nhị phân đã có để ghi thêm vào cuối. |
+| "r+b" | Mở tập tin nhị phân đã có cho phép cả đọc và ghi. |
+| "w+b" | Mở tập tin nhị phân cho phép cả đọc và ghi. Nếu file đã tồn tại, nội dung sẽ bị ghi đè. Nếu file không tồn tại, nó sẽ được tạo tự động. |
+| "a+b" | Mở hoặc tạo tập tin nhị phân cho phép cả đọc và ghi vào cuối. |
+
+---
+
+Đóng tập tin
+
+• Hàm fclose được sử dụng để ngắt kết nối giữa một con trỏ tập tin với tập tin mà nó đang tham chiếu tới.
+• int fclose(FILE *stream);
+• Cần đóng tập tin khi đã hoàn tất các thao tác đọc ghi với tập tin.

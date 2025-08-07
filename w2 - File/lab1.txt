@@ -1,0 +1,104 @@
+
+TậP TIN (FILE) CHO PHéP LưU TRữ THôNG TIN LâU DàI TRONG Bộ NHớ NGOàI.
+
+• CHươNG TRìNH KHôNG CHỉ NHậP Dữ LIệU Từ BàN PHíM, HIểN THị Dữ LIệU TRêN MàN HìNH Mà CòN Có THể NHậP Dữ LIệU Từ TậP TIN, GHI Dữ LIệU RA TậP TIN.
+• NGôN NGữ C CHO PHéP GIAO TIếP VớI CáC TậP TIN THôNG QUA MộT THựC THể đặC BIệT GọI Là CON TRỏ (KIểU) FILE.
+• CáC HàM đọC, GHI TậP TIN Sử DụNG CON TRỏ FILE Là đốI Số.
+• SAU MỗI THAO TáC đọC/GHI, Vị TRí CủA CON TRỏ FILE Sẽ THAY đổI.
+• KHAI BáO: FILE *FPTR;
+
+---
+
+CáC THAO TáC Cơ BảN KHI LàM VIệC VớI TậP TIN
+
+• Mở TậP TIN
+• ĐọC Dữ LIệU Từ TậP TIN VàO Bộ NHớ CHươNG TRìNH (Cụ THể Là VàO CáC BIếN)
+• GHI (XUấT) Dữ LIệU Từ Bộ NHớ CHươNG TRìNH RA TậP TIN
+• ĐóNG TậP TIN
+
+---
+
+FILE VăN BảN Và FILE NHị PHâN
+
+• FILE VăN BảN:
+    - Có NộI DUNG Là VăN BảN CHứA CáC Ký Tự NHìN THấY đượC.
+    - Có THể đượC TạO RA BằNG CáC PHầN MềM THôNG DụNG NHư NOTEPAD, NOTEPAD++, SUBLIME TEXT,…
+    - THUậN TIệN TRONG VIệC Sử DụNG HàNG NGàY, NHưNG KéM BảO MậT Và CầN NHIềU Bộ NHớ để LưU TRữ HơN.
+
+• FILE NHị PHâN:
+    - NộI DUNG LưU TRữ DướI DạNG NHị PHâN (CHUỗI 0 Và 1).
+    - BảO MậT Và TIếT KIệM KHôNG GIAN LưU TRữ HơN.
+
+---
+
+Mở TậP TIN
+
+• Sử DụNG HàM FOPEN()
+• NGUYêN MẫU: FILE *FOPEN(CONST CHAR *FILENAME, CONST CHAR *MODE);
+
+Ví Dụ:
+FILE *FPTR;
+IF ((FPTR = FOPEN("TEST.TXT", "R")) == NULL) {
+    PRINTF("CANNOT OPEN TEST.TXT FILE.\N");
+    EXIT(1);
+}
+
+---
+
+Mở TậP TIN
+
+• FILENAME: đườNG DẫN Và TêN TậP TIN.
+    - NHậN GIá TRị Là MộT XâU Ký Tự: "DATA.TXT"
+    - Có THể CHứA đườNG DẫN đầY đủ TớI TậP TIN: "/ROOT/HEDSPI/CPROGRAMMINGBASIC/LAB1/DATA.TXT"
+    - Có THể DùNG MộT BIếN MảNG Ký Tự để LưU TRữ: CHAR FILE_NAME[] = "JUNK.TXT";
+• LưU ý: NếU đườNG DẫN KHôNG đượC Mô Tả, TậP TIN MặC địNH NằM TạI CùNG THư MụC CHứA CHươNG TRìNH.
+
+---
+
+CáC THAM Số MODE CHO TậP TIN VăN BảN
+
+| MODE | Ý NGHĩA |
+|------|--------|
+| "R"  | Mở MộT TậP TIN VăN BảN đã Có CHỉ để đọC. NếU TậP TIN KHôNG TồN TạI, FOPEN() TRả Về NULL. |
+| "W"  | Mở MộT TậP TIN VăN BảN CHỉ để GHI. NếU FILE đã TồN TạI, NộI DUNG Sẽ Bị GHI đè. NếU FILE KHôNG TồN TạI, Nó Sẽ đượC TạO Tự độNG. |
+| "A"  | Mở MộT TậP TIN VăN BảN đã Có để GHI THêM VàO CUốI. |
+| "R+" | Mở MộT TậP TIN VăN BảN đã Có CHO PHéP Cả đọC Và GHI. NếU TậP TIN KHôNG TồN TạI, FOPEN() TRả Về NULL. |
+| "W+" | Mở FILE VăN BảN CHO PHéP Cả đọC Và GHI. |
+| "A+" | Mở FILE VăN BảN CHO PHéP Cả đọC Và GHI (APPEND). |
+
+---
+
+CáC THAM Số MODE CHO TậP TIN NHị PHâN
+
+| MODE  | Ý NGHĩA |
+|-------|--------|
+| "RB"  | Mở TậP TIN NHị PHâN đã Có CHỉ để đọC. |
+| "WB"  | Mở TậP TIN NHị PHâN CHỉ để GHI. |
+| "AB"  | Mở TậP TIN NHị PHâN đã Có để GHI THêM VàO CUốI. |
+| "R+B" | Mở TậP TIN NHị PHâN đã Có CHO PHéP Cả đọC Và GHI. |
+| "W+B" | Mở TậP TIN NHị PHâN CHO PHéP Cả đọC Và GHI. NếU FILE đã TồN TạI, NộI DUNG Sẽ Bị GHI đè. NếU FILE KHôNG TồN TạI, Nó Sẽ đượC TạO Tự độNG. |
+| "A+B" | Mở HOặC TạO TậP TIN NHị PHâN CHO PHéP Cả đọC Và GHI VàO CUốI. |
+
+---
+
+ĐóNG TậP TIN
+
+• HàM FCLOSE đượC Sử DụNG để NGắT KếT NốI GIữA MộT CON TRỏ TậP TIN VớI TậP TIN Mà Nó đANG THAM CHIếU TớI.
+• INT FCLOSE(FILE *STREAM);
+• CầN đóNG TậP TIN KHI đã HOàN TấT CáC THAO TáC đọC GHI VớI TậP TIN.
+
+---
+
+THAO TáC VớI TậP TIN THEO DòNG
+
+• Sử DụNG HAI HàM: FGETS() Và FPUTS()
+• CHAR *FGETS(CHAR *S, INT N, FILE *STREAM);
+    - S : THAM Số ứNG VớI XâU Ký Tự DùNG để LưU NộI DUNG DòNG đọC Từ TậP TIN.
+    - N : độ DàI XâU Ký Tự S – TíNH Cả Ký Tự NULL.
+    - HàM FGETS() DừNG KHI THỏA MãN MộT TRONG CáC đIềU KIệN SAU: đọC đượC N-1 Ký Tự Từ TậP TIN, GặP Ký Tự XUốNG DòNG MớI HOặC EOF. SAU đó THêM Ký Tự NULL VàO CUốI XâU S.
+• HàM: INT FPUTS(CONST CHAR *S, FILE *STREAM);
+    - S: XâU Ký Tự CầN GHI RA TậP TIN
+    - STREAM: CON TRỏ FILE
+    - KếT QUả TRả Về:
+        - 0 NếU THAO TáC THàNH CôNG
+        - KHáC 0 NếU THấT BạI.
