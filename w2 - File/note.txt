@@ -102,3 +102,13 @@ Thao tác với tập tin theo dòng
     - Kết quả trả về:
         - 0 nếu thao tác thành công
         - khác 0 nếu thất bại.
+
+---
+
+Đọc ghi file văn bản có định dạng
+
+• Đây là các hàm hữu ích để xử lý dữ liệu có cấu trúc (thuộc các kiểu dữ liệu khác nhau) từ văn bản.
+• int fscanf( FILE *stream, const char *format, ...);
+• Hàm fscanf hoạt động tương tự hàm scanf, điểm khác biệt là nó đọc nội dung từ tập tin (đại diện bởi con trỏ file) để ghi vào các biến.
+• int fprintf(FILE *stream, const char *format, ...);
+• Tương tự như hàm printf nhưng thay vì đưa nội dung ra màn hình thì nó ghi nội dung từ các đối số ra tập tin (đại diện bởi con trỏ file).

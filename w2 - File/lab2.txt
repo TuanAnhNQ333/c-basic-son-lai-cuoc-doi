@@ -1,0 +1,114 @@
+1 
+84 Tập tin (file) cho phép lưu trữ thông tin lâu dài trong bộ nhớ ngoài.
+1 
+195 • Chương trình không chỉ nhập dữ liệu từ bàn phím, hiển thị dữ liệu trên màn hình mà còn có thể nhập dữ liệu từ tập tin, ghi dữ liệu ra tập tin.
+140 • Ngôn ngữ C cho phép giao tiếp với các tập tin thông qua một thực thể đặc biệt gọi là con trỏ (kiểu) file.
+80 • Các hàm đọc, ghi tập tin sử dụng con trỏ file là đối số.
+85 • Sau mỗi thao tác đọc/ghi, vị trí của con trỏ file sẽ thay đổi.
+27 • Khai báo: FILE *fptr;
+1 
+4 ---
+1 
+57 Các thao tác cơ bản khi làm việc với tập tin
+1 
+19 • Mở tập tin
+104 • Đọc dữ liệu từ tập tin vào bộ nhớ chương trình (cụ thể là vào các biến)
+74 • Ghi (xuất) dữ liệu từ bộ nhớ chương trình ra tập tin
+21 • Đóng tập tin
+1 
+4 ---
+1 
+37 File văn bản và File nhị phân
+1 
+21 • File văn bản:
+80     - Có nội dung là văn bản chứa các ký tự nhìn thấy được.
+115     - Có thể được tạo ra bằng các phần mềm thông dụng như Notepad, Notepad++, Sublime Text,…
+135     - Thuận tiện trong việc sử dụng hàng ngày, nhưng kém bảo mật và cần nhiều bộ nhớ để lưu trữ hơn.
+1 
+22 • File nhị phân:
+74     - Nội dung lưu trữ dưới dạng nhị phân (chuỗi 0 và 1).
+65     - Bảo mật và tiết kiệm không gian lưu trữ hơn.
+1 
+4 ---
+1 
+15 Mở tập tin
+1 
+29 • Sử dụng hàm fopen()
+72 • Nguyên mẫu: FILE *fopen(const char *filename, const char *mode);
+1 
+10 Ví dụ:
+12 FILE *fptr;
+47 if ((fptr = fopen("test.txt", "r")) == NULL) {
+44     printf("Cannot open test.txt file.\n");
+13     exit(1);
+2 }
+1 
+4 ---
+1 
+15 Mở tập tin
+1 
+50 • filename: đường dẫn và tên tập tin.
+60     - Nhận giá trị là một xâu ký tự: "data.txt"
+116     - Có thể chứa đường dẫn đầy đủ tới tập tin: "/root/hedspi/CProgrammingBasic/Lab1/data.txt"
+100     - Có thể dùng một biến mảng ký tự để lưu trữ: char file_name[] = "junk.txt";
+138 • Lưu ý: Nếu đường dẫn không được mô tả, tập tin mặc định nằm tại cùng thư mục chứa chương trình.
+1 
+4 ---
+1 
+45 Các tham số mode cho tập tin văn bản
+1 
+21 | mode | Ý nghĩa |
+18 |------|--------|
+133 | "r"  | Mở một tập tin văn bản đã có chỉ để đọc. Nếu tập tin không tồn tại, fopen() trả về NULL. |
+189 | "w"  | Mở một tập tin văn bản chỉ để ghi. Nếu file đã tồn tại, nội dung sẽ bị ghi đè. Nếu file không tồn tại, nó sẽ được tạo tự động. |
+81 | "a"  | Mở một tập tin văn bản đã có để ghi thêm vào cuối. |
+144 | "r+" | Mở một tập tin văn bản đã có cho phép cả đọc và ghi. Nếu tập tin không tồn tại, fopen() trả về NULL. |
+63 | "w+" | Mở file văn bản cho phép cả đọc và ghi. |
+72 | "a+" | Mở file văn bản cho phép cả đọc và ghi (append). |
+1 
+4 ---
+1 
+46 Các tham số mode cho tập tin nhị phân
+1 
+22 | mode  | Ý nghĩa |
+19 |-------|--------|
+68 | "rb"  | Mở tập tin nhị phân đã có chỉ để đọc. |
+56 | "wb"  | Mở tập tin nhị phân chỉ để ghi. |
+77 | "ab"  | Mở tập tin nhị phân đã có để ghi thêm vào cuối. |
+79 | "r+b" | Mở tập tin nhị phân đã có cho phép cả đọc và ghi. |
+199 | "w+b" | Mở tập tin nhị phân cho phép cả đọc và ghi. Nếu file đã tồn tại, nội dung sẽ bị ghi đè. Nếu file không tồn tại, nó sẽ được tạo tự động. |
+95 | "a+b" | Mở hoặc tạo tập tin nhị phân cho phép cả đọc và ghi vào cuối. |
+1 
+4 ---
+1 
+17 Đóng tập tin
+1 
+145 • Hàm fclose được sử dụng để ngắt kết nối giữa một con trỏ tập tin với tập tin mà nó đang tham chiếu tới.
+30 • int fclose(FILE *stream);
+91 • Cần đóng tập tin khi đã hoàn tất các thao tác đọc ghi với tập tin.
+1 
+4 ---
+1 
+37 Thao tác với tập tin theo dòng
+1 
+46 • Sử dụng hai hàm: fgets() và fputs()
+47 • char *fgets(char *s, int n, FILE *stream);
+103     - s : tham số ứng với xâu ký tự dùng để lưu nội dung dòng đọc từ tập tin.
+67     - n : độ dài xâu ký tự s – tính cả ký tự NULL.
+220     - Hàm fgets() dừng khi thỏa mãn một trong các điều kiện sau: đọc được n-1 ký tự từ tập tin, gặp ký tự xuống dòng mới hoặc EOF. Sau đó thêm ký tự null vào cuối xâu s.
+50 • Hàm: int fputs(const char *s, FILE *stream);
+46     - s: Xâu ký tự cần ghi ra tập tin
+29     - stream: con trỏ file
+30     - Kết quả trả về:
+41         - 0 nếu thao tác thành công
+38         - khác 0 nếu thất bại.
+1 
+4 ---
+1 
+46 Đọc ghi file văn bản có định dạng
+1 
+140 • Đây là các hàm hữu ích để xử lý dữ liệu có cấu trúc (thuộc các kiểu dữ liệu khác nhau) từ văn bản.
+56 • int fscanf( FILE *stream, const char *format, ...);
+183 • Hàm fscanf hoạt động tương tự hàm scanf, điểm khác biệt là nó đọc nội dung từ tập tin (đại diện bởi con trỏ file) để ghi vào các biến.
+56 • int fprintf(FILE *stream, const char *format, ...);
+177 • Tương tự như hàm printf nhưng thay vì đưa nội dung ra màn hình thì nó ghi nội dung từ các đối số ra tập tin (đại diện bởi con trỏ file).
