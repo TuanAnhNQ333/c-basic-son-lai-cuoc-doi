@@ -1,4 +1,3 @@
-a b c d e f g h j k l m n o p q r s t u v w x y z
 
 Tập tin (file) cho phép lưu trữ thông tin lâu dài trong bộ nhớ ngoài.
 
@@ -40,8 +39,8 @@ Mở tập tin
 Ví dụ:
 FILE *fptr;
 if ((fptr = fopen("test.txt", "r")) == NULL) {
-        printf("Cannot open test.txt file.\n");
-        exit(1);
+    printf("Cannot open test.txt file.\n");
+    exit(1);
 }
 
 ---
@@ -87,3 +86,20 @@ Các tham số mode cho tập tin nhị phân
 • Hàm fclose được sử dụng để ngắt kết nối giữa một con trỏ tập tin với tập tin mà nó đang tham chiếu tới.
 • int fclose(FILE *stream);
 • Cần đóng tập tin khi đã hoàn tất các thao tác đọc ghi với tập tin.
+
+---
+
+Thao tác với tập tin theo dòng
+
+• Sử dụng hai hàm: fgets() và fputs()
+• char *fgets(char *s, int n, FILE *stream);
+    - s : tham số ứng với xâu ký tự dùng để lưu nội dung dòng đọc từ tập tin.
+    - n : độ dài xâu ký tự s – tính cả ký tự NULL.
+    - Hàm fgets() dừng khi thỏa mãn một trong các điều kiện sau: đọc được n-1 ký tự từ tập tin, gặp ký tự xuống dòng mới hoặc EOF. Sau đó thêm ký tự null vào cuối xâu s.
+• Hàm: int fputs(const char *s, FILE *stream);
+    - s: Xâu ký tự cần ghi ra tập tin
+    - stream: con trỏ file
+    - Kết quả trả về:
+        - 0 nếu thao tác thành công
+        - khác 0 nếu thất bại.
+
