@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/macbook/Documents/main_code/c basic/w1 - array string pointer/output/replace_char_in_string'
+relocations:     []
+...
