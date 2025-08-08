@@ -1,0 +1,19 @@
+Nội dung
+• Ôn tập kiểu cấu trúc
+• Cấp phát bộ nhớ động
+• Thao tác với tập tin nhị phân
+• Các bài tập lập trình
+
+Cấp phát bộ nhớ động
+• Các mảng thông thường có kích thước cố định được sử dụng để lưu trữ được tối đa một số lượng các phần tử được biết trước tại thời điểm biên dịch.
+• Kích thước này không thể thay đổi sau khi chương trình được tạo ra.
+• Tuy nhiên, chúng ta không thể luôn biết trước thực tế sử dụng chương trình sẽ cần lưu trữ, làm việc với bao nhiêu phần tử.
+• Kỹ thuật cấp phát bộ nhớ động (dynamic memory allocation):
+    - Xin hệ thống cấp phát số lượng bộ nhớ theo yêu cầu tại thời điểm chạy chương trình.
+    - Bộ nhớ cấp phát được quản lý bởi một con trỏ.
+Hàm malloc : 
+void *malloc(unsigned int nbytes);
+• Xin hệ thống cấp phát một vùng (khối) bộ nhớ có kích thước nBytes.
+• malloc trả về một con trỏ tới vùng nhớ nếu việc xin cấp phát thành công, trả về con trỏ NULL nếu thất bại.
+• Lưu ý: Luôn luôn kiểm tra xem bộ nhớ có được cấp phát thành công hay không.
+• Thuộc thư viện stdlib.h: #include <stdlib.h>
