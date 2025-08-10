@@ -36,14 +36,10 @@ int main() {
     }
     return 0;
 }
-/* giải thích về -> và .
-Dấu -> được sử dụng để truy cập thành viên của struct thông qua con trỏ.
-   Ví dụ: p->x có nghĩa là truy cập thành viên x của struct point_t mà p trỏ đến.
-   Tương tự, c->center.x có nghĩa là truy cập thành viên x của struct point_t mà c->center trỏ đến.
-Dấu . được sử dụng để truy cập thành viên của struct thông qua biến struct.
-    Ví dụ: p.x có nghĩa là truy cập thành viên x của struct point_t p.
-    Tương tự, c.center.x có nghĩa là truy cập thành viên x của struct point_t mà c.center trỏ đến.
-    Sự khác biệt chính là dấu -> được sử dụng khi bạn có một con trỏ đến struct,
-         trong khi dấu . được sử dụng khi bạn có một biến struct trực tiếp.
-    
-*/
+// Dấu . dùng để truy cập thành viên của struct khi bạn có biến struct trực tiếp.
+// Dấu -> dùng để truy cập thành viên của struct khi bạn có con trỏ đến struct.
+// Ví dụ:
+//   point_t p; p.x = 1.0;      // dùng dấu .
+//   point_t *pp = &p; pp->x = 2.0; // dùng dấu ->
+// Trong hàm is_in_circle, dùng -> vì p và c là con trỏ.
+// Trong hàm main, dùng . vì p và c là biến struct.
