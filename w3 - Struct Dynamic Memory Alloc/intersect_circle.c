@@ -64,15 +64,23 @@ int main() {
     printf("2. Random generation\n");
     scanf("%d", &choice);
     // nhập thông tin cho từng hình tròn
-    for(i = 0; i < n; i ++) {
-        if(choice == 1) {
+    if(choice == 1) {
+        for(i = 0; i < n; i ++) {
             printf("Enter the center coordinates (x y) and radius for circle %d: ", i + 1);
             scanf("%lf %lf %lf", &circles[i].center.x, &circles[i].center.y, &circles[i].radius);
-        } else if(choice == 2) {
-            circles[i].center.x = rand_double(-100.0, 100.0);
-            circles[i].center.y = rand_double(-100.0, 100.0);
-            circles[i].radius = rand_double(1.0, 50.0);
         }
+    } else if(choice == 2) {
+        for(i = 0; i < n; i ++) {
+            circles[i].center.x = rand_double(-10, 10);
+            circles[i].center.y = rand_double(-10, 10);
+            circles[i].radius = rand_double(1, 5);
+        }
+    }
+    // in thông tin các hình tròn
+    printf("\n");
+    printf("List of circles:\n");
+    for(i = 0; i < n; i ++) {
+        printf("Circle %d: Center(%.2f, %.2f), Radius %.2f\n", i + 1, circles[i].center.x, circles[i].center.y, circles[i].radius);
     }
     // kiểm tra giao nhau giữa các hình tròn
     for(i = 0; i < n; i ++) {
@@ -80,23 +88,33 @@ int main() {
         for(j = i + 1; j < n; j ++) {
             if(i != j && intersect_circle(&circles[i], &circles[j])) {
                 printf("Circle %d intersects with Circle %d\n", i + 1, j + 1);
-                printf("Circle %d: Center(%.2f, %.2f), Radius %.2f\n", i + 1, circles[i].center.x, circles[i].center.y, circles[i].radius);
-                printf("Circle %d: Center(%.2f, %.2f), Radius %.2f\n", j + 1, circles[j].center.x, circles[j].center.y, circles[j].radius);
                 intersections_counts[i]++;
-            } else {
-                printf("Circle %d does not intersect with Circle %d\n", i + 1, j + 1);
+                intersections_counts[j]++;
             }
-        }
-        if(intersections_counts[i] > max_intersections) {
-            max_intersections = intersections_counts[i];
         }
     }
     // thông tin về hình tròn giao với nhiều hình tròn khác nhất
     for(i = 0; i < n; i++) {
+        if(intersections_counts[i] > max_intersections) {
+            max_intersections = intersections_counts[i];
+                }
+    }
+    // in thông tin hình tròn có nhiều giao nhau nhất
+    printf("\n");
+    printf("Circles with most intersections (%d):\n", max_intersections);
+    for(i = 0; i < n; i ++) {
         if(intersections_counts[i] == max_intersections) {
-            printf("Circle %d has the most intersections (%d)\n", i + 1, max_intersections);
+            printf("Circle %d: Center(%.2f, %.2f), Radius %.2f\n", i + 1, circles[i].center.x, circles[i].center.y, circles[i].radius);
+            printf("  Intersects with: ");
+            for(j = 0; j < n; j ++) {
+                if(i != j && intersect_circle(&circles[i], &circles[j])) {
+                    printf("%d ", j + 1);
+                }
+            }
+            printf("\n");
         }
     }
     free(circles);
+    free(intersections_counts);
     return 0;
 }
