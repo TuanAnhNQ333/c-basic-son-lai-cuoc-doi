@@ -18,46 +18,47 @@ typedef struct {
 } student;
 int main(void) {
     FILE *fptr;
-    student *arr = malloc(10 * sizeof(student)); // mảng chứa sinh viên
-    int count = 0; // biến đếm số lượng sinh viên đã đọc
-    int n; // biến lưu số lượng sinh viên trong file
-    int reval = SUCCESS; // kết quả trả về của chương trình
-    printf("Loading file ...\n");
-    if((fptr = fopen("student.txt", "r")) == NULL) {
-        printf("Cannot open %s.\n", "student.txt");
-        reval = FAIL;
-    } else {
-        while(fscanf(fptr, "%d%s%s%s", &arr[count].no, arr[count].id, arr[count].name, arr[count].phone) != EOF) {
-            count ++;
-        }
-        n = count; // lưu số lượng sinh viên đã đọc vào biến n
-        for (count = 0; count < n; count ++) {
-            printf("%-6d%-15s%-20s%-15s\n", arr[count].no, arr[count].id, arr[count].name, arr[count].phone);
-        }
+    student *arr = NULL;
+    int n = 0, k, reval = SUCCESS;
+
+    if ((fptr = fopen("student.txt", "r")) == NULL) {
+        printf("Cannot open file.\n");
+        return FAIL;
     }
-    int k;
+
+    // Đếm số sinh viên
+    student temp;
+    while (fscanf(fptr, "%d %s %s %s", &temp.no, temp.id, temp.name, temp.phone) == 4) {
+        n++;
+    }
+    rewind(fptr);
+
+    // Cấp phát đúng kích thước
+    arr = malloc(n * sizeof(student));
+    for (int i = 0; i < n; i++) {
+        fscanf(fptr, "%d %s %s %s", &arr[i].no, arr[i].id, arr[i].name, arr[i].phone);
+    }
+    fclose(fptr);
+
+    printf("Current students:\n");
+    for (int i = 0; i < n; i++) {
+        printf("%-6d%-15s%-20s%-15s\n", arr[i].no, arr[i].id, arr[i].name, arr[i].phone);
+    }
+
+    // Nhập thêm sinh viên
     printf("Enter the number of students to add: ");
     scanf("%d", &k);
-    if(k < 0) {
-        printf("Invalid number of students to add.\n");
+    arr = realloc(arr, (n + k) * sizeof(student));
+    for (int i = n; i < n + k; i++) {
+        printf("Enter student %d (no id name phone): ", i + 1);
+        scanf("%d %s %s %s", &arr[i].no, arr[i].id, arr[i].name, arr[i].phone);
     }
-    // nhập thêm sinh viên
-    arr = realloc(arr, (n + k) * sizeof(student)); // cấp phát thêm bộ nhớ cho k sinh viên
-    if(arr == NULL) {
-        printf("Memory allocation failed\n");
-        reval = FAIL;
-    } else {
-        for(int i = n; i < n + k; i ++) {
-            printf("Enter student %d information (no id name phone): ", i + 1);
-            scanf("%d %s %s %s", &arr[i].no, arr[i].id, arr[i].name, arr[i].phone);
-        }
-        printf("Updated student list:\n");
-        for(int i = 0; i < n + k; i ++) {
-            printf("%-6d%-15s%-20s%-15s\n", arr[i].no, arr[i].id, arr[i].name, arr[i].phone);
-        }
+
+    printf("\nUpdated list:\n");
+    for (int i = 0; i < n + k; i++) {
+        printf("%-6d%-15s%-20s%-15s\n", arr[i].no, arr[i].id, arr[i].name, arr[i].phone);
     }
-    if(reval == FAIL) {
-        free(arr); // giải phóng bộ nhớ nếu có lỗi
-    }
+
+    free(arr);
     return reval;
 }
