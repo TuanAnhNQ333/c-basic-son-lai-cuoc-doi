@@ -1,19 +1,95 @@
-Nội dung
+NỘI DUNG
+--------
 • Ôn tập kiểu cấu trúc
 • Cấp phát bộ nhớ động
 • Thao tác với tập tin nhị phân
 • Các bài tập lập trình
 
-Cấp phát bộ nhớ động
-• Các mảng thông thường có kích thước cố định được sử dụng để lưu trữ được tối đa một số lượng các phần tử được biết trước tại thời điểm biên dịch.
+CẤP PHÁT BỘ NHỚ ĐỘNG
+---------------------
+• Các mảng thông thường có kích thước cố định, được sử dụng để lưu trữ tối đa một số lượng phần tử biết trước tại thời điểm biên dịch.
 • Kích thước này không thể thay đổi sau khi chương trình được tạo ra.
 • Tuy nhiên, chúng ta không thể luôn biết trước thực tế sử dụng chương trình sẽ cần lưu trữ, làm việc với bao nhiêu phần tử.
 • Kỹ thuật cấp phát bộ nhớ động (dynamic memory allocation):
     - Xin hệ thống cấp phát số lượng bộ nhớ theo yêu cầu tại thời điểm chạy chương trình.
     - Bộ nhớ cấp phát được quản lý bởi một con trỏ.
-Hàm malloc : 
+
+HÀM malloc
+----------
 void *malloc(unsigned int nbytes);
+
 • Xin hệ thống cấp phát một vùng (khối) bộ nhớ có kích thước nBytes.
 • malloc trả về một con trỏ tới vùng nhớ nếu việc xin cấp phát thành công, trả về con trỏ NULL nếu thất bại.
 • Lưu ý: Luôn luôn kiểm tra xem bộ nhớ có được cấp phát thành công hay không.
 • Thuộc thư viện stdlib.h: #include <stdlib.h>
+
+VÌ SAO CẦN ÉP KIỂU?
+-------------------
+Phép ép kiểu trong câu lệnh:
+    p = (int *)malloc(n * sizeof(int));
+là cần thiết vì hàm malloc trả về void *:
+    void *malloc(unsigned int nbytes);
+Kiểu (void *) đặc tả một con trỏ khái quát, có thể được ép kiểu về bất cứ kiểu con trỏ nào.
+
+HÀM calloc
+----------
+void *calloc(size_t nitems, size_t size);
+
+• Cấp phát động vùng nhớ gồm một số xác định nitems các phần tử cùng kiểu, mỗi phần tử có kích thước size byte.
+• Khởi tạo các phần tử với giá trị mặc định là 0, trong khi hàm malloc không tiến hành khởi tạo cho mảng cấp phát.
+• Trả về một con trỏ tới vùng nhớ nếu việc xin cấp phát thành công, trả về con trỏ NULL nếu thất bại.
+• ptr = (float*) calloc(25, sizeof(float));
+
+TÁI CẤP PHÁT BỘ NHỚ VỚI HÀM realloc
+-----------------------------------
+• Đôi khi chương trình cần cấp phát thêm bộ nhớ sau lần xin cấp phát đầu tiên.
+• void *realloc(void *ptr, size_t size);
+• Thay đổi kích thước vùng nhớ trỏ bởi con trỏ ptr đã được cấp phát trước đó với hàm malloc hoặc calloc.
+• Các tham số:
+    - ptr: là con trỏ tới vùng nhớ đã được cấp phát và cần cấp phát lại. Nếu con trỏ này là NULL, một vùng nhớ mới sẽ được cấp phát và trả về bởi hàm.
+    - size: Kích thước mới của vùng nhớ tính theo đơn vị byte. Nếu nó là 0 và ptr đang trỏ tới một vùng nhớ đã được cấp phát, vùng nhớ trỏ bởi ptr này được giải phóng và hàm trả về NULL.
+• Giá trị trả về:
+    - Trả về một con trỏ tới vùng nhớ nếu yêu cầu cấp phát lại thành công, trả về con trỏ NULL nếu thất bại.
+
+HÀM free
+--------
+void free(void *ptr);
+
+• Hàm free(p) giải phóng bộ nhớ cấp phát trỏ bởi p.
+• Nếu p không trỏ tới một vùng nhớ nào, một lỗi thực thi chương trình sẽ xuất hiện.
+• Luôn nhớ giải phóng các vùng nhớ cấp phát động khi không còn cần đến chúng.
+    - VD: Khi thoát chương trình.
+
+CẤU TRÚC: KIỂU DỮ LIỆU DO NGƯỜI DÙNG ĐỊNH NGHĨA
+------------------------------------------------
+• Kết hợp nhiều biến trong 1 thực thể phức tạp dưới 1 tên.
+• Là 1 cách thuận tiện để nhóm các thông tin có liên quan đến chung 1 thực thể trong bài toán lại với nhau.
+• Các biến góp phần tạo ra 1 struct được gọi là các thành phần - hay các trường.
+
+Ví dụ định nghĩa kiểu số phức:
+    struct complex {
+        int real;
+        int img;
+    };
+    struct complex num1, num2, num3;
+
+Kết hợp với typedef để đặt 1 tên kiểu khác:
+    typedef struct complex {
+        int real;
+        int img;
+    } complex_t;
+    complex_t num1, num2;
+
+Các tham số mode cho tập tin nhị phân
+-------------------------------------
+| mode  | Ý nghĩa                                                                 |
+|-------|------------------------------------------------------------------------|
+| "rb"  | Mở tập tin nhị phân đã có chỉ để đọc.                                  |
+| "wb"  | Mở tập tin nhị phân chỉ để ghi.                                        |
+| "ab"  | Mở tập tin nhị phân đã có để ghi thêm vào cuối.                        |
+| "r+b" | Mở tập tin nhị phân đã có cho phép cả đọc và ghi.                      |
+| "w+b" | Mở tập tin nhị phân cho phép cả đọc và ghi. Nếu file đã tồn tại, nội dung sẽ bị ghi đè. Nếu file không tồn tại, nó sẽ được tạo tự động. |
+| "a+b" | Mở hoặc tạo tập tin nhị phân cho phép cả đọc và ghi vào cuối.           |
+
+• C cung cấp hai hàm vào ra: fread() và fwrite(), cho phép thực hiện các thao tác vào ra theo các khối các byte.
+• Tương tự như các hàm khác, các hàm trên làm việc với đối số là các con trỏ file.
