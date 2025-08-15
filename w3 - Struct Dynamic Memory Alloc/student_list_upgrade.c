@@ -31,7 +31,7 @@ int main(void) {
     while (fscanf(fptr, "%d %s %s %s", &temp.no, temp.id, temp.name, temp.phone) == 4) {
         n++;
     }
-    rewind(fptr);
+    rewind(fptr); // rewind : 
 
     // Cấp phát đúng kích thước
     arr = malloc(n * sizeof(student));
