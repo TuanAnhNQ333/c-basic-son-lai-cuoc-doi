@@ -93,3 +93,29 @@ Các tham số mode cho tập tin nhị phân
 
 • C cung cấp hai hàm vào ra: fread() và fwrite(), cho phép thực hiện các thao tác vào ra theo các khối các byte.
 • Tương tự như các hàm khác, các hàm trên làm việc với đối số là các con trỏ file.
+
+fread()
+-------
+• Nguyên mẫu của hàm fread:
+    size_t fread(void *ptr, size_t size, size_t n, FILE *stream);
+• ptr: con trỏ trỏ tới một mảng được sử dụng để lưu trữ dữ liệu đọc từ tập tin.
+• size: kích thước mỗi phần tử mảng (theo byte).
+• n: số phần tử dữ liệu đọc từ tập tin.
+• stream: con trỏ file gắn với file đang được đọc hay ghi.
+• Hàm trả về số phần tử thực sự được đọc thành công từ tập tin.
+
+fwrite()
+--------
+• Nguyên mẫu hàm fwrite:
+    size_t fwrite(const void *ptr, size_t size, size_t n, FILE *stream);
+• ptr: con trỏ trỏ tới một mảng được sử dụng để lưu trữ dữ liệu sẽ được ghi ra tập tin.
+• size: kích thước mỗi phần tử mảng (theo byte).
+• n: số phần tử dữ liệu ghi ra tập tin.
+• stream: con trỏ file gắn với file đang được đọc hay ghi.
+• Hàm trả về số phần tử thực sự được ghi thành công vào tập tin.
+
+Hàm feof
+--------
+• int feof(FILE *stream);
+• Kiểm tra xem vị trí con trỏ file đã tới cuối tập tin hay chưa.
+• Hàm trả về 0 nếu chưa tới vị trí cuối file; ngược lại trả về giá trị khác không.
