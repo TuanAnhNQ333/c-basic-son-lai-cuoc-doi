@@ -16,7 +16,7 @@ void BlockReadWrite(FILE *fin, FILE *fout) {
         num = fread(buffer, sizeof(char), MAX_LEN, fin); // đọc tối đa MAX_LEN byte từ tệp fin
         buffer[num *sizeof(char)] = '\0'; // Thêm ký tự kết thúc chuỗi
 
-        printf("%s", buffer); // in 
+        printf("%s", buffer); // in nội dung đã đọc
         fwrite(buffer, sizeof(char), num, fout); // ghi nội dung fin vào fout
     }
 }
