@@ -84,9 +84,9 @@ Các tham số mode cho tập tin nhị phân
 -------------------------------------
 | mode  | Ý nghĩa                                                                 |
 |-------|------------------------------------------------------------------------|
-| "rb"  | Mở tập tin nhị phân đã có chỉ để đọc.                                  |
-| "wb"  | Mở tập tin nhị phân chỉ để ghi.                                        |
-| "ab"  | Mở tập tin nhị phân đã có để ghi thêm vào cuối.                        |
+| "rb"  | Mở tập tin nhị phân đã có chỉ để đọc.                                  |  rb : read binary
+| "wb"  | Mở tập tin nhị phân chỉ để ghi.                                        |  wb : write binary
+| "ab"  | Mở tập tin nhị phân đã có để ghi thêm vào cuối.                        |  ab : appending binary
 | "r+b" | Mở tập tin nhị phân đã có cho phép cả đọc và ghi.                      |
 | "w+b" | Mở tập tin nhị phân cho phép cả đọc và ghi. Nếu file đã tồn tại, nội dung sẽ bị ghi đè. Nếu file không tồn tại, nó sẽ được tạo tự động. |
 | "a+b" | Mở hoặc tạo tập tin nhị phân cho phép cả đọc và ghi vào cuối.           |
