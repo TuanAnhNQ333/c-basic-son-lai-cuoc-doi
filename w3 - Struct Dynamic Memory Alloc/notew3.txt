@@ -119,3 +119,19 @@ Hàm feof
 • int feof(FILE *stream);
 • Kiểm tra xem vị trí con trỏ file đã tới cuối tập tin hay chưa.
 • Hàm trả về 0 nếu chưa tới vị trí cuối file; ngược lại trả về giá trị khác không.
+
+Truy cập ngẫu nhiên tập tin
+---------------------------
+• Sử dụng hai hàm: fseek() và ftell()
+• fseek(): hàm chuyển dịch vị trí con trỏ file tới một điểm mong muốn trong tập tin.
+    fseek(FILE *stream, long offset, int whence);
+    - stream: con trỏ tập tin
+    - offset: độ dài chuyển dịch tính theo byte
+    - whence: hằng số chỉ mốc và hướng dịch chuyển
+        * SEEK_SET: từ đầu tập tin, dịch chuyển về phía cuối tập tin
+        * SEEK_CUR: từ vị trí con trỏ file hiện tại, dịch chuyển về phía cuối tập tin
+        * SEEK_END: từ cuối tập tin dịch chuyển về đầu tập tin
+• Hàm ftell: cho biết giá trị vị trí hiện tại của con trỏ file
+    long ftell(FILE *stream);
+• Hàm rewind(): Đặt lại vị trí con trỏ file ở đầu tập tin.
+    void rewind(FILE *stream);
