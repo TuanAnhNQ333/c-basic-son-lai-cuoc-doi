@@ -13,7 +13,7 @@ mục từ và hiển thị các từ nằm ở các vị trí này trong từ �
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-#define MAX_WORD_LENGTH 100
+#define MAX_WORD_LENGTH 500
 enum {SUCCESS, FAIL};
 typedef struct DictionaryEntry {
     char word[MAX_WORD_LENGTH];
