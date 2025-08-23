@@ -10,46 +10,77 @@ phân.
 • Sau đó chương trình đọc dữ liệu từ tập tin nhị phần, hỏi người dùng vị trí bắt đầu và kết thúc của
 mục từ và hiển thị các từ nằm ở các vị trí này trong từ điển.
 */
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
-#define MAX_WORD_LENGTH 500
-enum {SUCCESS, FAIL};
-typedef struct DictionaryEntry {
-    char word[MAX_WORD_LENGTH];
-    char definition[MAX_WORD_LENGTH];
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_WORD 100
+#define MAX_DEF  400
+#define MAX_LINE 512
+
+typedef struct {
+    char word[MAX_WORD];
+    char definition[MAX_DEF];
 } DictionaryEntry;
+
+enum {SUCCESS, FAIL};
+
+// Hàm chuyển file văn bản -> file nhị phân
 void convert_text_to_binary(const char *input_file, const char *output_file) {
     FILE *fin = fopen(input_file, "r");
-    FILE *fout = fopen(output_file, "wb");
-    if (!fin || !fout) {
-        printf("Cannot open file.\n");
+    if (!fin) {
+        printf("Cannot open input file %s\n", input_file);
         return;
     }
 
+    FILE *fout = fopen(output_file, "wb");
+    if (!fout) {
+        printf("Cannot open output file %s\n", output_file);
+        fclose(fin);
+        return;
+    }
+
+    char line[MAX_LINE];
     DictionaryEntry entry;
-    while (fscanf(fin, "%s %[^\n]", entry.word, entry.definition) == 2) {
-        fwrite(&entry, sizeof(DictionaryEntry), 1, fout);
+
+    while (fgets(line, sizeof(line), fin)) {
+        // Tìm dấu ':' trong dòng
+        char *sep = strchr(line, ':');
+        if (sep) {
+            *sep = '\0'; // tách từ và nghĩa
+            strncpy(entry.word, line, MAX_WORD - 1);
+            entry.word[MAX_WORD - 1] = '\0'; // tránh tràn chuỗi
+
+            strncpy(entry.definition, sep + 1, MAX_DEF - 1);
+            entry.definition[MAX_DEF - 1] = '\0';
+
+            // loại bỏ \n ở cuối definition (nếu có)
+            entry.definition[strcspn(entry.definition, "\n")] = '\0';
+
+            fwrite(&entry, sizeof(DictionaryEntry), 1, fout);
+        }
     }
 
     fclose(fin);
     fclose(fout);
-    printf("Converted %s to %s successfully.\n", input_file, output_file);
+    printf("Converted %s -> %s successfully.\n", input_file, output_file);
 }
 
+// Hàm hiển thị các từ theo vị trí
 void search_and_display(const char *input_file, int start, int end) {
     FILE *fin = fopen(input_file, "rb");
     if (!fin) {
-        printf("Cannot open file %s.\n", input_file);
+        printf("Cannot open file %s\n", input_file);
         return;
     }
 
     DictionaryEntry entry;
     int position = 0;
-    printf("---- Dictionary Entries ----\n");
+
+    printf("---- Dictionary Entries (%d to %d) ----\n", start, end);
     while (fread(&entry, sizeof(DictionaryEntry), 1, fin) == 1) {
         if (position >= start && position <= end) {
-            printf("Word: %s, Definition: %s\n", entry.word, entry.definition);
+            printf("%d. %s : %s\n", position, entry.word, entry.definition);
         }
         position++;
     }
@@ -66,7 +97,8 @@ int main(void) {
     int start, end;
     printf("Enter start and end positions: ");
     scanf("%d %d", &start, &end);
+
     search_and_display(output_file, start, end);
 
-    return 0;
+    return SUCCESS;
 }
