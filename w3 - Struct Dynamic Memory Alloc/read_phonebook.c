@@ -1,9 +1,10 @@
 /*
- Write a program to read a specific range of records from the phonebook.dat file.
- For example, read records from the 2nd to the 3rd, or from the 3rd to the 6th.
- Then, modify the email field of these records and write them back to the file at the correct position.
- The program should dynamically allocate memory to store exactly the number of records read from the file.
- For example, allocate a dynamic array with 4 elements to store records from the 3rd to the 6th.
+ Viết chương trình đọc một phần cụ thể trong dữ liệu danh bạ lưu trữ trong tập
+tin phonebook.dat. Ví dụ từ dữ liệu danh bạ (bản ghi) thứ 2 đến thứ 3, hay từ thứ 3 đến
+thứ 6. Sau đó thay đổi giá trị trường email và ghi lại vào tập tin ở đúng vị trí đã trích xuất.
+• Chương trình cần cấp phát bộ nhớ để lưu trữ đúng lượng dữ liệu đọc ra từ tập tin khi
+chạy chương trình. Ví dụ cần mảng động với 4 phần tử cấu trúc để lưu dữ liệu từ phần tử
+thứ 3 đến thứ 6.
 */
 #include<stdio.h>
 #include<stdlib.h>
