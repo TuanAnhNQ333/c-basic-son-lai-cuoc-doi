@@ -15,13 +15,11 @@ căn thẳng các cột.
 4. Search by phone by Phone Model: Tìm kiếm điện thoại dựa trên model do người dùng nhập.
 5. Exit
 */
-
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
 
-#define MAX_LEN 80
-#define MAX_SIZE 20
+#define MAX_SIZE 50
 #define MAX_LINE 512
 
 typedef struct PhoneINfo_t{
@@ -31,8 +29,10 @@ typedef struct PhoneINfo_t{
     char Price[MAX_SIZE];
 
 } PhoneInfo;
+
 enum{SUCCESS, FAIL};
-// function import text to binary file
+/*-------------------------------------------------*/
+//1. Chuyển từ file text sang file binary
 void import_DB_from_text (const char *input_file, const char *output_file) {
     FILE *fin = fopen(input_file, "r");
     if(fin == NULL) {
@@ -48,8 +48,7 @@ void import_DB_from_text (const char *input_file, const char *output_file) {
 
     char line[MAX_LINE];
     PhoneInfo info;
-    
-    
+
     while(fgets(line, sizeof(line), fin)) {
         if(sscanf(line, "%s %d %lf %s", info.Model, &info.MemorySpace, &info.ScreenSize, info.Price) == 4)  {
             fwrite(&info, sizeof(PhoneInfo), 1, fout);
@@ -60,12 +59,79 @@ void import_DB_from_text (const char *input_file, const char *output_file) {
     fclose(fout);
     printf("Converted %s -> %s succcessfully.\n", input_file, output_file);
 }
-// function read all or 1 part of binary file
+/*-------------------------------------------------*/
+//2. function read all or 1 part of binary file
+//Đọc dữ liệu từ file nhị phân vào bộ nhớ
 void import_from_DB (const char *input_file) {
-    
+    FILE *fin = fopen(input_file, "rb");
+    if(!fin) {
+        printf("Cannot open file %s!\n", input_file);
+        return;
+    }
+    // đếm số bản ghi trong file
+    fseek(fin, 0, SEEK_END); 
+    long file_size = ftell(fin); // 
+    int total_records = file_size / sizeof(PhoneInfo);
+    rewind(fin);
+
+    if(total_records == 0) {
+        printf("Database is empty!\n");
+        fclose (fin);
+        return;
+    }
+
+    int mode;
+    printf("Choose mode:\n");
+    printf("1. Read all records.\n");
+    printf("2. Read a part of records.\n");
+    printf("Enter choice: ");
+    scanf("%d", &mode);
+
+    int start = 0; int end = total_records - 1;
+    if(mode == 2) {
+        printf("Enter start position (0-%d): ", total_records - 1);
+        scanf("%d", &start);
+        printf("Enter end position (0-%d): ", total_records - 1);
+        scanf("%d", &end);
+
+        if(start < 0) {
+            start = 0;
+        }
+        if(end >= total_records) {
+            end = total_records;
+        }
+        if(start > end ) {
+            printf("Invalid range!\n");
+            fclose(fin);
+            return;
+        }
+    }
+    int num_records = end - start + 1; // 
+    // Cấp phát động cho mảng 
+    PhoneInfo *arr = (PhoneInfo *)malloc(num_records * sizeof(PhoneInfo));
+    if(arr == NULL) {
+        printf("Memory allocation failed!\n");
+        fclose(fin);
+        return;
+    }
+    // Đọc dữ liệu từ vị trí start -> end
+    fseek(fin, start * sizeof(PhoneInfo), SEEK_SET);
+    fread(arr, sizeof(PhoneInfo), num_records, fin );
+    // in ra màn hình 
+    printf("%-20s %-10s %-10s %-10s", "Model", "Memory", "Screen", "Price");
+    printf("\n");
+    printf("-------------------------------------------------------------\n");
+    for(int i = 0; i < num_records ; i ++) {
+        printf("%-20s %-10d %-10.1f %-10s\n", arr[i].Model, arr[i].MemorySpace, arr[i].ScreenSize, arr[i].Price);
+    }
+    printf("-------------------------------------------------------------\n");
+
+    free(arr);
+    fclose(fin);
 
 }
-// function print all DB : ok
+/*-------------------------------------------------*/
+//3. function print all DB : ok
 void print_all_DB(const char *input_file) {
     PhoneInfo info;
     FILE *fin = fopen(input_file, "r");
@@ -73,14 +139,21 @@ void print_all_DB(const char *input_file) {
         printf("Cannot open file %s!", input_file);
         return ;
     }
+    printf("All products : \n");
+    printf("%-20s %-10s %-10s %-10s\n", "Model", "Memory", "Screen", "Price");
+    printf("---------------------------------------------------------------\n");
     char line[MAX_LINE];
     while(fgets(line, sizeof(line), fin)) {
         if(sscanf(line, "%s %d %lf %s", info.Model, &info.MemorySpace, &info.ScreenSize, info.Price) == 4) {
             printf("%-20s %-10d %-10.1f %-10s\n", info.Model, info.MemorySpace, info.ScreenSize, info.Price);
         }
     }
+    printf("---------------------------------------------------------------\n");
+
     fclose(fin);
 }
+/*-------------------------------------------------*/
+//4. Search function (hàm tìm kiếm theo model)
 void search_by_model(const char *input_file) {
     PhoneInfo p;
     int found = 0;
@@ -91,18 +164,26 @@ void search_by_model(const char *input_file) {
         return;
     }
     printf("Search model : ");
+    getchar(); // bỏ ký tự '\n' còn sót lại từ scanf
     fgets(search_model, sizeof(search_model), stdin);
+    search_model[strcspn(search_model, "\n")] = 0; // xoá \n
+
     while (fread(&p, sizeof(PhoneInfo), 1, fin) == 1) {
         if(strcmp(search_model, p.Model) == 0) {
             found = 1;
-            printf("Find your product : \n");
-            printf("%-15s %-10d %-10.1f %-15s\n", p.Model, p.MemorySpace, p.ScreenSize, p.Price);
+            printf("Your searched product : \n");
+            printf("%-20s %-10s %-10s %-10s\n", "Model", "Memory", "Screen", "Price");
+            printf("---------------------------------------------------------------\n");
+            printf("%-20s %-10d %-10.1f %-15s\n", p.Model, p.MemorySpace, p.ScreenSize, p.Price);
+            printf("---------------------------------------------------------------\n");
         }
     }
     if(!found) {
         printf("Product not found! \n");
     }
+    fclose(fin);
 }
+/*-------------------------------------------------*/
 int main(void) {
     const char input_file[] = "PhoneDB.txt";
     const char output_file[] = "PhoneDB.dat";
@@ -126,13 +207,14 @@ int main(void) {
                 import_DB_from_text(input_file, output_file);
                 break;
             case 2: 
-                import_from_DB(input_file);
+                import_from_DB(output_file);
                 break;
             case 3: 
                 print_all_DB(input_file);
                 break;
             case 4:
-                search_by_model(input_file);
+                search_by_model(output_file);
+                // tại sao lại là file dat
                 break;
             case 5: 
                 printf("Exiting program.\n");
@@ -143,3 +225,4 @@ int main(void) {
     } while (choice != 5);
     return SUCCESS;
 }
+
