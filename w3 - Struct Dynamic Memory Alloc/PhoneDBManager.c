@@ -49,7 +49,8 @@ void import_DB_from_text (const char *input_file, const char *output_file) {
     char line[MAX_LINE];
     PhoneInfo info;
 
-    while(fgets(line, sizeof(line), fin)) {
+    while(fgets(line, sizeof(line), fin)) { // lặp đến khi kết quả trong ngoặc là fail 
+        //parse chuỗi line để lấy ra 4 trường của struct, so sánh với 4 để đảm bảo đọc đủ
         if(sscanf(line, "%s %d %lf %s", info.Model, &info.MemorySpace, &info.ScreenSize, info.Price) == 4)  {
             fwrite(&info, sizeof(PhoneInfo), 1, fout);
         }
@@ -216,7 +217,7 @@ int main(void) {
                 search_by_model(output_file);
                 // tại sao lại là file dat
                 break;
-            case 5: 
+            case 5:
                 printf("Exiting program.\n");
                 break;
             default: 
