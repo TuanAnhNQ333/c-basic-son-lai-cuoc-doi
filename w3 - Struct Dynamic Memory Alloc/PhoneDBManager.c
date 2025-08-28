@@ -52,7 +52,13 @@ void import_DB_from_text (const char *input_file, const char *output_file) {
     while(fgets(line, sizeof(line), fin)) { // lặp đến khi kết quả trong ngoặc là fail 
         //parse chuỗi line để lấy ra 4 trường của struct, so sánh với 4 để đảm bảo đọc đủ
         if(sscanf(line, "%s %d %lf %s", info.Model, &info.MemorySpace, &info.ScreenSize, info.Price) == 4)  {
-            fwrite(&info, sizeof(PhoneInfo), 1, fout);
+            fwrite(&info, sizeof(PhoneInfo), 1, fout); // ghi 1 bản ghi nhị phân vào file fout
+            /* 
+            info : con trỏ tới dữ liệu cần ghi
+            sizeof(PhoneInfo) : kích thước mỗi phần tử 
+            1 : num : số phần tử 
+            fout : con trỏ file fout
+            */
         }
     }
 
