@@ -76,10 +76,10 @@ void import_from_DB (const char *input_file) {
         return;
     }
     // đếm số bản ghi trong file
-    fseek(fin, 0, SEEK_END); 
-    long file_size = ftell(fin); // 
-    int total_records = file_size / sizeof(PhoneInfo);
-    rewind(fin);
+    fseek(fin, 0, SEEK_END); // di chuyển con trỏ tới cuối file
+    long file_size = ftell(fin); // trả về kích thước file(số byte)
+    int total_records = file_size / sizeof(PhoneInfo); // số bản ghi = kích thước file / kích thước 1 struct
+    rewind(fin);// Tương đương fseek(fin, 0, SEEK_SET); — đặt con trỏ file về đầu file, sẵn sàng đọc.
 
     if(total_records == 0) {
         printf("Database is empty!\n");
