@@ -170,7 +170,7 @@ void print_all_DB(const char *input_file) {
 void search_by_model(const char *input_file) {
     PhoneInfo p;
     int found = 0;
-    char search_model[20];
+    char search_model[20];  
     FILE *fin = fopen(input_file, "rb");
     if(!fin) {
         printf("Cannot open file %s\n", input_file);
@@ -200,7 +200,7 @@ void search_by_model(const char *input_file) {
 int main(void) {
     const char input_file[] = "PhoneDB.txt";
     const char output_file[] = "PhoneDB.dat";
-    int choice;
+    int choice;  
 
     do {
         printf("Menu:\n");
@@ -239,3 +239,4 @@ int main(void) {
     return SUCCESS;
 }
 
+   
