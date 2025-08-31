@@ -114,16 +114,22 @@ void import_from_DB (const char *input_file) {
         }
     }
     int num_records = end - start + 1; // 
-    // Cấp phát động cho mảng 
+    // Cấp phát động cho mảng chứa num_records PhoneInfo. arr là con trỏ trỏ tới vùng đó
     PhoneInfo *arr = (PhoneInfo *)malloc(num_records * sizeof(PhoneInfo));
+    /*
+    - malloc(size_t n) : trả void* trỏ tới n byte (hoặc NULL)
+    - num_records * sizeof(PhoneInfo) = số byte cấp phát
+    - (PhoneInfo*) : ép kiểu con trỏ void* trả về 
+    */
     if(arr == NULL) {
         printf("Memory allocation failed!\n");
         fclose(fin);
         return;
     }
     // Đọc dữ liệu từ vị trí start -> end
-    fseek(fin, start * sizeof(PhoneInfo), SEEK_SET);
-    fread(arr, sizeof(PhoneInfo), num_records, fin );
+    fseek(fin, start * sizeof(PhoneInfo), SEEK_SET);// di chuyển tới byte offset = start * sizeof(PhoneInfo)
+            // (vì mỗi record có sizeof(PhoneInfo) byte). 
+    fread(arr, sizeof(PhoneInfo), num_records, fin ); // đọc num_records phần tử, mỗi phần tử gồm sizeof(PhoneInfo) byte từ fin và lưu vào arr
     // in ra màn hình 
     printf("%-20s %-10s %-10s %-10s", "Model", "Memory", "Screen", "Price");
     printf("\n");
