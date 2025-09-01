@@ -220,13 +220,13 @@ int main(void) {
                 import_DB_from_text(input_file, output_file);
                 break;
             case 2: 
-                import_from_DB(output_file);
+                import_from_DB(output_file);  
                 break;
             case 3: 
                 print_all_DB(input_file);
                 break;
             case 4:
-                search_by_model(output_file);
+                search_by_model(output_file);  
                 // tại sao lại là file dat
                 break;
             case 5:
