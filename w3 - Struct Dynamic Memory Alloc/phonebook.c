@@ -1,5 +1,7 @@
 /*
-Đọc và ghi tập tin nhị phân chứa các cấu trúc Giả sử bạn cần quản lý một danh bạ điện thoại của mình bằng chương trình. Định nghĩa một cấu trúc biểu diễn danh bạ gồm các trường "name," "telephone number," "e-mail address,” và khai báo một mảng chứa tối đa 100 phần tử thuộc kiểu cấu trúc trên.
+Đọc và ghi tập tin nhị phân chứa các cấu trúc
+ Giả sử bạn cần quản lý một danh bạ điện thoại của mình bằng chương trình.
+  Định nghĩa một cấu trúc biểu diễn danh bạ gồm các trường "name," "telephone number," "e-mail address,” và khai báo một mảng chứa tối đa 100 phần tử thuộc kiểu cấu trúc trên.
 • Nhập liệu cho khoảng 10 phần tử mảng.
 • Chương trình sau đó ghi nội dung mảng với các phần tử nói trên vào tập tin có tên
 phonebook.dat sử dụng hàm fwrite.
