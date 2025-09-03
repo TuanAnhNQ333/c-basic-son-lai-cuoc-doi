@@ -27,8 +27,8 @@ typedef struct student_t {
     char name[30];
     double score;
 } student;
-
-void TextToDat(const char *txtFile, const char *datFile) {
+// hàm chuyển đổi từ tập tin văn bản sang tập tin nhị phân
+void TextToDat(const char *txtFile, const char *datFile) { 
     FILE *fin = fopen(txtFile, "r");
     FILE *fout = fopen(datFile, "w+b");
     if(!fin || !fout) {
@@ -36,6 +36,7 @@ void TextToDat(const char *txtFile, const char *datFile) {
         return;
     }
     student s;
+    // đọc từng dòng từ tập tin văn bản và ghi vào tập tin nhị phân
     while(fscanf(fin, "%s %s %lf", s.id, s.name, &s.score) == 3) {
         fwrite(&s, sizeof(student), 1, fout);
     }
