@@ -1,5 +1,5 @@
 /*
- Viết chương trình đọc một phần cụ thể trong dữ liệu danh bạ lưu trữ trong tập
+Viết chương trình đọc một phần cụ thể trong dữ liệu danh bạ lưu trữ trong tập
 tin phonebook.dat. Ví dụ từ dữ liệu danh bạ (bản ghi) thứ 2 đến thứ 3, hay từ thứ 3 đến
 thứ 6. Sau đó thay đổi giá trị trường email và ghi lại vào tập tin ở đúng vị trí đã trích xuất.
 • Chương trình cần cấp phát bộ nhớ để lưu trữ đúng lượng dữ liệu đọc ra từ tập tin khi
