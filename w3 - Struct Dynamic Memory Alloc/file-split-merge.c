@@ -46,7 +46,6 @@ void filesplit(const char *input_file, int n, const char *output_file1, const ch
         return;
     }
 
-    char line[MAX_LINE];
     PhoneInfo info;
     int count = 0;
 
@@ -67,7 +66,7 @@ void filesplit(const char *input_file, int n, const char *output_file1, const ch
 void filemerge(const char *input_file1, const char *input_file2, const char *output_file) {
     FILE *file1 = fopen(input_file1, "rb");
     FILE *file2 = fopen(input_file2, "rb");
-    FILE *fileout = fopen(output_file, "rb");
+    FILE *fileout = fopen(output_file, "wb");
     if(file1 == NULL) {
         printf("Cannot open file %s", input_file1);
         return;
@@ -99,27 +98,26 @@ màn hình. Nó được sử dụng để kiểm tra kết quả thực hiện 
 void fileread(const char *filename) {
     FILE *fin = fopen(filename, "rb");
     if(fin == NULL) {
-        printf("Cannot open file %s", filename);
+        printf("Cannot open file %s\n", filename);
         return;
     }
     PhoneInfo info;
     int index = 1;
     while(fread(&info, sizeof(PhoneInfo), 1, fin) == 1) {
-        printf("%2d. Name: %-20s | Phone: %-20s | Email: %-20s", index, info.name, info.telephone, info.email);
+        printf("%2d. Name: %-20s | Phone: %-20s | Email: %-20s\n", index, info.name, info.telephone, info.email);
         index ++;
     }
     fclose(fin);
 }
 
 int main(int argc, char *argv[]) {
-    FILE *fptr;
-    if(argc != 2) {
+    /*if(argc != 2) {
         printf("The correct syntax should be: \n");
         printf(" %s filesplit <src> <N> <fileout1> <fileout2> \n", argv[0]);
         printf(" %s filemerge <src1> <src2> <fileout>\n", argv[0]);
         printf(" %s fileread <filename>\n", argv[0]);
         return 1;
-    }
+    }*/
     if(strcmp(argv[1], "filesplit") == 0) {
         if(argc != 6) {
             printf("The correct syntax should be : %s filesplit <src> <N> <fileout1> <fileout2>\n", argv[0]);
