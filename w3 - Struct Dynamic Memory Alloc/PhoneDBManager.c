@@ -223,7 +223,7 @@ int main(void) {
                 import_from_DB(output_file);  
                 break;
             case 3: 
-                print_all_DB(input_file);
+                print_all_DB(input_file); 
                 break;
             case 4:
                 search_by_model(output_file);  
