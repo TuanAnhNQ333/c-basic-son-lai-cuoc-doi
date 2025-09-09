@@ -1,0 +1,111 @@
+1) Con trỏ là gì — khái niệm ngắn
+------------------------------------
+
+Con trỏ (pointer) là một biến lưu địa chỉ ô nhớ (thay vì lưu giá trị trực tiếp).
+Ví dụ: int *p là con trỏ trỏ tới một int.
+
+& = lấy địa chỉ của một biến (address-of)
+* = lấy giá trị tại địa chỉ đó (dereference)
+
+2) Tại sao fwrite(&info, ...) dùng &?
+--------------------------------------
+
+fwrite cần một con trỏ tới bộ nhớ bắt đầu vùng dữ liệu: const void *ptr.
+
+info là một struct, không phải con trỏ. Để truyền địa chỉ vùng nhớ của struct ta dùng &info (kiểu PhoneInfo *) — hợp lệ với const void *.
+
+Nếu bạn có con trỏ rồi, không cần &: ví dụ PhoneInfo *p; fwrite(p, sizeof *p, 1, fout);
+
+3) Ví dụ minh họa
+------------------
+
+typedef struct {
+    char model[50];
+    int memory; 
+    double screen;
+    char price[20];
+} PhoneInfo;
+
+/* Ghi 1 struct */
+PhoneInfo info = { "Galaxy", 8, 6.5, "1000" };
+FILE *f = fopen("phones.bin", "wb");
+if (!f) { 
+    perror("fopen"); 
+    return; 
+}
+if (fwrite(&info, sizeof info, 1, f) != 1) {
+    perror("fwrite failed");
+}
+fclose(f);
+
+/* Nếu có con trỏ */
+PhoneInfo *p = malloc(sizeof *p);
+*p = info;                           // copy dữ liệu vào vùng nhớ mới
+fwrite(p, sizeof *p, 1, f);         // truyền p (đã là địa chỉ) -> không dùng &
+free(p);
+
+/* Ghi mảng struct (arr decays to pointer tới phần tử đầu) */
+PhoneInfo arr[10];
+fwrite(arr, sizeof arr[0], 10, f);  // arr ≈ &arr[0]
+
+4) & vs * — khi nào dùng
+-------------------------
+
+&x → bạn lấy địa chỉ của x. Dùng khi hàm/chức năng cần biết nơi lưu dữ liệu 
+(ví dụ scanf("%d", &x) hay fwrite(&info, ...)).
+
+*p → bạn lấy/đổi giá trị nằm tại địa chỉ p. Dùng khi bạn muốn đọc/ghi giá trị đó: 
+*p = 5; printf("%d", *p);
+
+int *p; trong khai báo → bạn tạo con trỏ (ví dụ p = &x;).
+
+5) Sơ đồ nhớ (ASCII) — ví dụ với info
+--------------------------------------
+
+Memory:
+0x100: +---------------------------+
+       | info.model (bytes...)     |
+0x130: | info.memory (int) = 8    |
+0x134: | info.screen  (double)    |
+0x13C: | info.price  (chars...)   |
+       +---------------------------+
+
+Variable `info` lives starting at address 0x100.
+`&info` = 0x100 (con trỏ tới bộ nhớ struct).
+`fwrite(&info, sizeof info, 1, fout)` => ghi từ 0x100, sizeof bytes.
+
+6) Một vài lưu ý quan trọng khi dùng fwrite
+-------------------------------------------
+
+fwrite ghi raw memory — không portable nếu:
+- khác kiến trúc (endianness)
+- struct có padding (compiler chèn byte rỗng)
+- kiểu số có kích thước khác nhau giữa nền tảng
+
+Nếu cần tính di động: serialize (text, JSON, protobuf, hoặc tự convert từng trường sang thứ tự byte chuẩn).
+
+Luôn kiểm tra giá trị trả về: if (fwrite(...) != nmemb) /* lỗi */
+
+Sau ghi có thể dùng fflush(f) trước fclose, và check ferror(f).
+
+7) Một số tình huống thường nhầm lẫn
+------------------------------------
+
+fwrite(info, ...) — chỉ đúng nếu info đã là con trỏ (ví dụ PhoneInfo *info). 
+Nếu info là biến struct thì info không phải địa chỉ -> lỗi biên dịch.
+
+Với mảng T arr[N]; thì dùng fwrite(arr, sizeof arr[0], N, f); 
+vì arr decays thành pointer tới phần tử đầu.
+
+&arr khác arr ở kiểu:
+- arr (khi là mảng) → T * (địa chỉ phần tử 0)
+- &arr → T (*)[N] (con trỏ tới cả mảng)
+Trong hầu hết trường hợp fwrite(arr, ...) là đúng.
+
+8) Cách nhớ nhanh
+-----------------
+
+& = address-of (lấy địa chỉ)
+* = value-at (lấy/đặt giá trị tại con trỏ)
+
+Trong fwrite(&info, ...) nghĩ: "fwrite cần địa chỉ bắt đầu của vùng nhớ, nên ta đưa &info".
