@@ -1,0 +1,21 @@
+
+20231234 Nguyen Van Anh 3.45
+20232345 Tran Thi Binh 3.67
+20233456 Le Hoang Cuong 2.89
+20234567 Pham Minh Duc 3.21
+20235678 Hoang Thu Dung 3.78
+20236789 Vu Thanh Hai 2.95
+20237890 Dang Quoc Hung 3.12
+20238901 Bui Thi Huong 3.56
+20239012 Do Van Khanh 2.78
+20230123 Ngo Thi Lan 3.89
+20231235 Mai Van Minh 3.34
+20232346 Trinh Nam 2.67
+20233457 Dinh Bao Ngoc 3.91
+20234568 Cao Xuan Phuong 3.23
+20235679 Duong Quang Son 2.88
+20236780 Ta Van Thanh 3.45
+20237891 Luong Thi Thu 3.67
+20238902 Ly Van Toan 2.99
+20239013 Dao Thi Trang 3.78
+20230124 Ho Minh Tuan 3.12
