@@ -1,0 +1,36 @@
+ĐỆ QUY
+---------
+
+• Đối tượng có cấu trúc đệ quy là đối tượng được định nghĩa/xây dựng qua chính nó với quy mô nhỏ hơn
+
+• Hàm đệ quy là hàm đưa ra lời gọi đến chính nó với quy mô tham số nhỏ hơn
+
+• Thuật toán đệ quy (thường được thể hiện bởi 1 hàm đệ quy) phù hợp để thực hiện các xử lý, tính toán trên các đối tượng có cấu trúc đệ quy
+
+Ví dụ các hàm đệ quy:
+--------------------
+
+F(n) = {
+    F(n-1) + n,    nếu n ≥ 2
+}
+
+F(n) = {
+    1,                  khi n = 1
+    F(n-1) + F(n-2),   khi n ≥ 2
+}
+
+F(n) = {
+    n,                  khi n = 0, 1
+    F(n-1) + F(n-2),   khi n ≥ 2
+}
+
+F(a,b) = {
+    a,              nếu a = b
+    F(a-b, b),      nếu a > b
+    F(a, b-a),      nếu a < b
+}
+
+C(k,n) = {
+    1,                          khi k = 0 hoặc k = n
+    C(k,n-1) + C(k-1,n-1),     ngược lại
+}
