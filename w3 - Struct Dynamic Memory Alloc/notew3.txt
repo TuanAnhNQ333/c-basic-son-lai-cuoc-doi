@@ -135,3 +135,4 @@ Truy cập ngẫu nhiên tập tin
     long ftell(FILE *stream);
 • Hàm rewind(): Đặt lại vị trí con trỏ file ở đầu tập tin.
     void rewind(FILE *stream);
+
