@@ -34,3 +34,5 @@ C(k,n) = {
     1,                          khi k = 0 hoặc k = n
     C(k,n-1) + C(k-1,n-1),     ngược lại
 }
+
+
