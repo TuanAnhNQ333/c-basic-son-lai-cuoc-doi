@@ -20,7 +20,8 @@ int gcd(int a, int b) {
         return a;
     }
     // Recursive case: GCD(a,b) = GCD(b, a mod b)
-    return gcd(b, a % b);
+    int c = a % b ;
+    return gcd(b, c);
 }
 
 int main() {
