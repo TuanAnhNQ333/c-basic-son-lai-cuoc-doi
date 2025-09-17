@@ -44,7 +44,7 @@ int main(void) {
         scanf("%d", &input1[i]);
     }
     for(int i = 0; i < N; i++) {
-        scanf("%d", &input2[i]);
+        scanf("%d", &input2[i]);   
     }
 
    if (compare_arrays(N, input1, input2) == 1) {
