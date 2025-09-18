@@ -18,6 +18,21 @@ Output
 HELLO JOHN,
 HOW ARE YOU?
 
-BYE, */
+BYE, 
+
+fgets(*file, sizeof(file), stdin);*/
 #include<stdio.h>
 #include<string.h>
+char str[1000] = {0};
+int main() {
+    
+    while(fgets(str, sizeof(str), stdin) != NULL) {
+        for(int i = 0; str[i] != '\0'; i ++) {
+            if('a' <= str[i] && str[i] <= 'z') {
+                str[i] = str[i] - 32;
+            }
+        }
+    }
+    printf("%s", str);
+    return 0;
+}
