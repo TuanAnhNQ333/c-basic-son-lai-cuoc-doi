@@ -34,5 +34,5 @@ int main() {
         }
     }
     printf("%s", str);
-    return 0;
+    return 0;  
 }
