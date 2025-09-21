@@ -18,11 +18,12 @@ BÀI TOÁN DÃY SỐ FIBONACCI (P.02.04.04)
   10      55
 */
 #include<stdio.h>
-#define max_len 10000000
+#define max_len 1000000000000
 int fibonacci(int n) {
     if(n <= 1) {
         return n;
     }
+    
     return (fibonacci(n-1) + fibonacci(n-2)) % max_len;
 }
 int main() {
