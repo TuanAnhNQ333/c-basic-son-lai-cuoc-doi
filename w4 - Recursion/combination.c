@@ -31,6 +31,6 @@ int combination(int k, int n) {
 int main() {
     int k, n;
     scanf("%d %d", &k, &n);
-    printf("%d", combination(k, n));
+    printf("%d", combination(k, n)); 
     return 0;
 }
