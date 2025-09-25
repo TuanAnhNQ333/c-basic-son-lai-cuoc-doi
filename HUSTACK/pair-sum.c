@@ -45,16 +45,13 @@ int main() {
     for(int i = 0; i < N; i ++ ) {
         scanf("%d", &array[i]);
     }
-
     int q;
     scanf("%d", &q);
 
-    int query[q];
-    for(int i = 0; i < q; i++) {
-        scanf("%d", &query[i]);
-    }
     for(int i = 0; i < q; i ++) {
-        int result = pair_sum(N, array, query[i]);
+        int query;
+        scanf("%d", &query);
+        int result = pair_sum(N, array, query);
         printf("%d\n", result);
     }
 
