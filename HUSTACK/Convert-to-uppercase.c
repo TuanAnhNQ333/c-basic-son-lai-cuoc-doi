@@ -23,7 +23,9 @@ BYE,
 fgets(*file, sizeof(file), stdin);*/
 #include<stdio.h>
 #include<string.h>
+
 char str[1000] = {0};
+
 int main() {
     
     while(fgets(str, sizeof(str), stdin) != NULL) {
@@ -32,7 +34,7 @@ int main() {
                 str[i] = str[i] - 32;
             }
         }
+        printf("%s", str);
     }
-    printf("%s", str);
     return 0;  
 }
