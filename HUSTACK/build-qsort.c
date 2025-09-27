@@ -22,7 +22,7 @@ int partitionArray(void *array, int leftIndex, int rightIndex, size_t sizeOfElem
             storeIndex++;
             swapElements(charArray + storeIndex * sizeOfElement, currentElement, sizeOfElement);
         }
-    }
+    }   
     swapElements(charArray + (storeIndex + 1) * sizeOfElement, pivotElement, sizeOfElement);
     return storeIndex + 1;
 }
