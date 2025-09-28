@@ -20,7 +20,7 @@ int partitionArray(void *array, int leftIndex, int rightIndex, size_t sizeOfElem
         void *currentElement = charArray + currentIndex * sizeOfElement;
         if (compareFunction(currentElement, pivotElement) < 0) { // nếu nhỏ hơn pivot
             storeIndex++;
-            swapElements(charArray + storeIndex * sizeOfElement, currentElement, sizeOfElement);
+            swapElements(charArray + storeIndex * sizeOfElement, currentElement, sizeOfElement);   
         }
     }   
     swapElements(charArray + (storeIndex + 1) * sizeOfElement, pivotElement, sizeOfElement);
