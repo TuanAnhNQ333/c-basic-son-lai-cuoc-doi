@@ -1,8 +1,5 @@
 # 📘 Cbasic Exercises
 
-Repo này chứa toàn bộ code bài tập của môn **Cơ sở lập trình C (Cbasic)**.  
-Các bài tập được sắp xếp theo **chương** và **nội dung chi tiết**, bám sát chương trình học.
-
 ---
 
 ## 📂 Cấu trúc thư mục
@@ -62,5 +59,3 @@ Các bài tập được sắp xếp theo **chương** và **nội dung chi ti�
 - Áp dụng kiến thức để giải quyết các bài toán thực tế bằng ngôn ngữ C.  
 
 ---
-
-✍️ *Repo được tạo ra để phục vụ học tập, thảo luận và rèn luyện kỹ năng lập trình.*
