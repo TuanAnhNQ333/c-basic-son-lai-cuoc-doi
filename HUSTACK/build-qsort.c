@@ -18,8 +18,7 @@ int partitionArray(void *array, int leftIndex, int rightIndex, size_t sizeOfElem
 
     for (int currentIndex = leftIndex; currentIndex < rightIndex; currentIndex++) {
         void *currentElement = charArray + currentIndex * sizeOfElement;
-        if (compareFunction(currentElement, pivotElement) < 0) { // nếu nhỏ hơn pivot
-            storeIndex++;
+        if (compareFunction(currentElement, pivotElement) < 0) { // nếu nhỏ hơn pivot             storeIndex++;
             swapElements(charArray + storeIndex * sizeOfElement, currentElement, sizeOfElement);   
         }
     }   
