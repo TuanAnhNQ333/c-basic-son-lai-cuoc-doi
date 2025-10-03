@@ -2,7 +2,7 @@
 #include<string.h>
 #include<stdlib.h>
 
-#define MAX_LEN 100
+#define MAX_LEN 1000
 void count_words_in_text(const char * text) {
     int count = 0;
     int in_word = 0;
@@ -23,11 +23,10 @@ void count_words_in_text(const char * text) {
             }
         }
     }
-    printf("Number of words: %d\n", count);
+    printf("%d", count);
 }
 int main() {
     char text[MAX_LEN];
-    printf("Enter the text: ");
     fgets(text, MAX_LEN, stdin);
     
     // Remove newline character if present
