@@ -23,7 +23,7 @@ Output
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-#define maxlen 1000
+#define maxlen 10000
 #define datelen 11
 
 typedef struct student_id {
@@ -35,13 +35,14 @@ typedef struct student_id {
 int main() {
     infomation info[maxlen];
     int n = 0;
-    char line[200];
+    char line[1000];
 
     while(1) {
-        fgets(line, sizeof(line), stdin);
+        fgets(line, sizeof(line) - 1, stdin);
         if(line[0] == '*') {
             break;
         }
+
         char date[11];
         strncpy(date, line, 10);
         date[10] = '\0';
