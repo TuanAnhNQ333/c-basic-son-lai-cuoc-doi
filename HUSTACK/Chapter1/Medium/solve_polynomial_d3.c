@@ -56,7 +56,7 @@ int main() {
             if(absC % i == 0) {
                 long long candidate[2] = {i, -i};
                 for(int j = 0; j < 2; j ++) {
-                    long long x = candidate[j];
+                    long long x = candidate[j]; 
                     long long value = x*x*x + a*x*x + b*x + c;
                     if(value == 0) {
                         k = x;
