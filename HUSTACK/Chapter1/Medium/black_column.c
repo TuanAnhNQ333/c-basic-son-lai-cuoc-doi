@@ -46,4 +46,4 @@ int main() {
     }
     printf("%d", black_column);
     return 0;
-}
+} 
