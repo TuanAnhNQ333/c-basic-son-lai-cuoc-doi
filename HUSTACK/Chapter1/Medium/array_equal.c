@@ -43,9 +43,6 @@ Output
 #include<string.h>
 #define maxlen 10000
 int main() {
-    int array[maxlen] = {0};
-    int savearray1[maxlen] = {0};
-    int savearray2[maxlen] = {0};
 
     int T ; //test
     scanf("%d", &T);
@@ -54,8 +51,14 @@ int main() {
     
     for(int t = 0; t < T; t ++) {
         int n, m;
+
         scanf("%d %d", &n, &m);
-        
+        int a[maxlen];
+        int b[maxlen];
+        for(int i = 0; i < n; i ++) {
+            scanf("%d", &a[i]);
+        }
+
     }
     for(int i = 0; i < T; i ++) {
          printf("%d\n", check[i]);
