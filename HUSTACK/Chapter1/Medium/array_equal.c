@@ -52,30 +52,10 @@ int main() {
 
     int check[T] ;
     
-    for(int i = 0; i < T; i ++) {
-        int n, m; // number 
+    for(int t = 0; t < T; t ++) {
+        int n, m;
         scanf("%d %d", &n, &m);
-        for(int j = 0; j < n; j++) {
-            scanf("%d", &array[j]);
-            savearray1[j] = array[j];
-        }
-        for(int k = 0; k < m; k++) {
-            scanf("%d", &array[k]);
-            savearray2[k] = array[k];
-        }
-        if(n != m) {
-            check[i] = 0;
-        } if(n == m) {
-            for(int j = 0; j < n; j ++) {
-                if(savearray1[j] != savearray2[j]) {
-                    check[i] = 0;
-                } else if(savearray1[j] == savearray2[j]){
-                    check[i] = 1;
-                } else {
-                    check[i] = 0;
-                }
-            }
-        }
+        
     }
     for(int i = 0; i < T; i ++) {
          printf("%d\n", check[i]);
