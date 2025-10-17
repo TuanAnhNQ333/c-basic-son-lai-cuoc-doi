@@ -59,6 +59,7 @@ int main() {
             scanf("%d", &a[i]);
         }
 
+        
     }
     for(int i = 0; i < T; i ++) {
          printf("%d\n", check[i]);
