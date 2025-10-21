@@ -70,6 +70,7 @@ int main() {
             if(a[i] != b[i]) {
                 check[t] = 0;
                 break;
+                
             }
         }
     }
