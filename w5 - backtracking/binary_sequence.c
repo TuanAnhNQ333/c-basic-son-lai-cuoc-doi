@@ -22,7 +22,7 @@ int x[N];
 
 void print_solution() {
     for(int i = 0; i < n; i ++) {
-        printf("%d ", x[i]);
+        printf("%d", x[i]);
     }
     printf("\n");
 }
