@@ -27,26 +27,47 @@ Output
 1
 0
 */
-#include<stdio.h>
-#include<string.h>
-int check_queen(int **matrix) {
+#include <stdio.h>
+#include <stdlib.h> // để dùng abs()
 
-}
 int main() {
-    int query;
-    scanf("%d", &query);
-    int n;
-    int matrix[n][n];
-    for(int m = 0; m < query; m ++) {
+    int T;
+    scanf("%d", &T);
+    
+    while (T--) {
+        int n;
         scanf("%d", &n);
-        for(int i = 0; i < n; i ++) {
-            for(int j = 0;  j < n; j ++) {
-                scanf("%d", &matrix[i][j]);
+        int A[105][105];
+        int queens[105][2];
+        int qCount = 0;
+        
+        // Nhập ma trận và lưu vị trí các quân hậu
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                scanf("%d", &A[i][j]);
+                if (A[i][j] == 1) {
+                    queens[qCount][0] = i;
+                    queens[qCount][1] = j;
+                    qCount++;
+                }
             }
         }
-        for(int j = 0; j < n; j ++) {
-            int queen_solution = 0;
-            
+
+        int ok = 1;
+        // Kiểm tra các cặp hậu xem có ăn nhau không
+        for (int i = 0; i < qCount && ok; i++) {
+            for (int j = i + 1; j < qCount; j++) {
+                int r1 = queens[i][0], c1 = queens[i][1];
+                int r2 = queens[j][0], c2 = queens[j][1];
+                if (r1 == r2 || c1 == c2 || abs(r1 - r2) == abs(c1 - c2)) {
+                    ok = 0;
+                    break;
+                }
+            }
         }
+
+        printf("%d\n", ok);
     }
+    return 0;
 }
+
