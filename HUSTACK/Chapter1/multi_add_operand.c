@@ -8,7 +8,6 @@ Input:
 Output:
 - Write the value Q modulo 10^9+7 if the expression is mathematically correct in terms of syntax
 - Write NOT_CORRECT otherwise
-
 Example 1:
 Input:
 5+7*3*10*10
