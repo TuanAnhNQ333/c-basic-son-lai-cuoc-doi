@@ -14,7 +14,7 @@ Input:
 Output:
 2105
 
-Example 2:  
+Example 2:   
 Input:
 5*+ 7*3*10*10
 Output:
