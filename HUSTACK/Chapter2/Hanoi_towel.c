@@ -21,4 +21,4 @@ int main() {
     scanf("%d%d%d%d", &n, &a, &b, &c);
     control_plate(n, a, b, c);
     return 0;
-}   
+}      
