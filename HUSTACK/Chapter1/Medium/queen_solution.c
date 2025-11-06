@@ -34,7 +34,7 @@ int main() {
     int T;
     scanf("%d", &T); 
     
-    while (T--) {
+    while (T--) {     
         int n;
         scanf("%d", &n);
         int A[105][105];
