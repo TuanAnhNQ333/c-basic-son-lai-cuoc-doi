@@ -25,7 +25,7 @@ Output
 #include<string.h>
 #define maxlen 10000
 #define datelen 11
-
+     
 typedef struct student_id {
     char date[datelen];
     char user_id;
