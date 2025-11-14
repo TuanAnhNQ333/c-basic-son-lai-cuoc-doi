@@ -14,7 +14,10 @@ int main(void)
     printf("Enter a list of numbers with the first is the size of list: \n");
     scanf("%d", &n);
 
-    p = (int*)malloc(n * sizeof(int));
+    p = (int*)malloc(n * sizeof(int)); // cấp phát bộ nhớ cho mảng p với kích thước n 
+    // nếu malloc trả về NULL thì báo lỗi và thoát chương trình
+    // nếu không cấp phát được thì báo lỗi và thoát chương trình
+    // nếu cấp phát thành công thì tiếp tục nhập các giá trị vào mảng p
     i = 0;
     sum = 0;
 

@@ -1,0 +1,8 @@
+3 Sony_Headphones_WH1000XM4 4500000
+4 Dell_XPS_13 16000000
+5 HP_LaserJet_Pro 3200000
+6 Canon_EOS_M50 9500000
+7 Logitech_MX_Master_3 1500000
+8 Asus_ROG_Strix_G15 21000000
+9 Apple_iPhone_13 17000000
+10 Samsung_Galaxy_Tab_S7 12000000
