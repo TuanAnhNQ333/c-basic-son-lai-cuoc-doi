@@ -1,0 +1,42 @@
+1. Hàm strcspn : 
+
+
+
+2. Hàm fgets : 
+ char * fgets(char *s, int n, FILE * stream) 
+    - Ý nghĩa: đọc tối đa n-1 ký tự từ stream vào s hoặc cho đến gặp \n. Luôn thêm '\0' để kết thúc chuỗi. Nếu thấy \n thì \n được giữ trong s.
+    - Trả về: con trỏ s nếu thành công, NULL nếu hết file (EOF) hoặc lỗi.
+    - Thường dùng: đọc từng dòng an toàn hơn gets() (vì giới hạn kích thước).
+
+
+3. hàm fseek : 
+
+    fseek(fin, start * sizeof(PhoneInfo), SEEK_SET);
+     di chuyển tới byte offset = start * sizeof(PhoneInfo)
+     (vì mỗi record có sizeof(PhoneInfo) byte).
+fseek = seek (tìm tới), ftell = tell (nói vị trí), rewind = quay về đầu.
+4. hàm fread: 
+fread(void *ptr, size_t size, size_t nmemb, FILE *stream)
+-> đọc nmemb phần tử, mỗi phần tử size byte từ stream vào ptr
+5. hàm sscanf: 
+ sscanf(const char *str, const char * format, ...) 
+
+
+* cấp phát động : malloc 
+PhoneInfo *arr = (PhoneInfo *)malloc(num_records *sizeof(PhoneInfo));
+
+
+
+ PhoneInfo *arr = (PhoneInfo *)malloc(num_records * sizeof(PhoneInfo));
+Cấp phát mảng động đủ chỗ để chứa num_records bản ghi PhoneInfo. arr là con trỏ trỏ tới vùng nhớ đó.
+Phân tích
+malloc(size_t n) trả void* trỏ tới n byte (hoặc NULL nếu thất bại).
+num_records * sizeof(PhoneInfo) = số byte cần cấp phát.
+(PhoneInfo *) là ép kiểu con trỏ void* trả về thành PhoneInfo*.
+Trong C, không cần cast kết quả malloc (thậm chí nhiều style guide khuyên không cast). Nhưng cast cũng hợp lệ.
+Sau khi dùng xong phải free(arr); để tránh leak.
+6. fwrite prototype: size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream);
+- ptr = con trỏ tới dữ liệu cần ghi (&info).
+- size = kích thước mỗi phần tử (ở đây sizeof(PhoneInfo) = số byte của struct).
+- nmemb = số phần tử (ở đây 1).
+- stream = file pointer fout.
