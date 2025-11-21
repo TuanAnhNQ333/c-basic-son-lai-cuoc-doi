@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/macbook/Documents/main_code/c basic/HUSTACK/Chapter1/output/multi_add_operand'
+relocations:     []
+...
