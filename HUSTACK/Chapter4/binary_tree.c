@@ -32,117 +32,121 @@ Output
 1 2 5 3 4
 2 6 5 7 1 4 3
 */
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 typedef struct Node {
     int id;
-    struct Node * leftChild;
-    struct Node * rightChild;
-
+    struct Node *leftChild;
+    struct Node *rightChild;
 } Node;
-Node * makeNode (int u) {
-    Node * p = (Node *) malloc(sizeof(Node));
+
+Node* makeNode(int u);
+Node* find(int u, Node* r);
+void addLeft(int u, int v, Node* r);
+void addRight(int u, int v, Node* r);
+
+void collectPre(Node* r, int* a, int* n) {
+    if (!r) return;
+    a[(*n)++] = r->id;
+    collectPre(r->leftChild, a, n);
+    collectPre(r->rightChild, a, n);
+}
+
+void collectIn(Node* r, int* a, int* n) {
+    if (!r) return;
+    collectIn(r->leftChild, a, n);
+    a[(*n)++] = r->id;
+    collectIn(r->rightChild, a, n);
+}
+
+void collectPost(Node* r, int* a, int* n) {
+    if (!r) return;
+    collectPost(r->leftChild, a, n);
+    collectPost(r->rightChild, a, n);
+    a[(*n)++] = r->id;
+}
+
+Node* makeNode(int u) {
+    Node* p = (Node*)malloc(sizeof(Node));
+    p->id = u;
     p->leftChild = NULL;
     p->rightChild = NULL;
-    p->id = u;
     return p;
 }
-void addLeft(int u, int v, Node * r) {
-    Node * p = find(v, r);
-    if(p == NULL) {
-        return;
-    }
-    if(p->leftChild != NULL) {
-        return;
-    }
-    Node * q = find (u, r);
-    if(q != NULL) {
-        return;
-    }
-    p -> leftChild = makeNode(u);
-}
-void addRight(int u, int v, Node * r) {
-    Node *p = find(v, r);
-    if(p == NULL) {
-        return;
-    }
-    if(p->rightChild != NULL) {
-        return;
-    }
-    Node *q = find(u,r) ;
-    if(q != NULL) {
-        return;
-    }
-    p->rightChild = makeNode(u);
-}
-Node *find(int u, Node * r) {
-    if(r == NULL) {
-        return NULL;
-    }
-    if(r -> id == u) {
-        return r;
-    }
-    Node *p = find(u, r->leftChild);
-    if(p != NULL) {
-        return p;
-    }
+
+Node* find(int u, Node* r) {
+    if (!r) return NULL;
+    if (r->id == u) return r;
+    Node* p = find(u, r->leftChild);
+    if (p) return p;
     return find(u, r->rightChild);
 }
-void preOrder(Node *r) {
-    if(r == NULL) {
-        return;
-    }
-    printf("%d ", r->id);
-    preOrder(r->leftChild);
-    preOrder(r->rightChild);
+
+void addLeft(int u, int v, Node* r) {
+    Node* p = find(v, r);
+    if (!p) return;
+    if (p->leftChild) return;
+    if (find(u, r)) return;
+    p->leftChild = makeNode(u);
 }
-void inOrder(Node * r) {
-    if(r == NULL) {
-        return;
-    }
-    inOrder(r->leftChild);
-    printf("%d ", r->id);
-    inOrder(r->rightChild);
+
+void addRight(int u, int v, Node* r) {
+    Node* p = find(v, r);
+    if (!p) return;
+    if (p->rightChild) return;
+    if (find(u, r)) return;
+    p->rightChild = makeNode(u);
 }
-void postOrder(Node * r) {
-    if(r == NULL) {
-        return;
+
+void printArray(int* a, int n) {
+    for (int i = 0; i < n; i++) {
+        if (i > 0) printf(" ");
+        printf("%d", a[i]);
     }
-    postOrder(r -> leftChild) ;
-    postOrder(r -> rightChild);
-    printf("%d ", r->id);
+    printf("\n");
 }
+
 int main() {
     char cmd[100];
-    Node *root = NULL;
-    while(1) {
+    Node* root = NULL;
+
+    int a[10000]; // lưu kết quả duyệt cây
+
+    while (1) {
         scanf("%s", cmd);
-        if(strcmp(cmd, "*") == 0) {
-            break;
-        } else if(strcmp(cmd, "MakeRoot") == 0) {
+        if (strcmp(cmd, "*") == 0) break;
+
+        if (strcmp(cmd, "MakeRoot") == 0) {
             int u;
             scanf("%d", &u);
             root = makeNode(u);
-        } else if(strcmp(cmd, "AddLeft") == 0) {
-            int u;
-            int v;
+        }
+        else if (strcmp(cmd, "AddLeft") == 0) {
+            int u, v;
             scanf("%d%d", &u, &v);
             addLeft(u, v, root);
-        } else if(strcmp(cmd, "AddRight") == 0) {
-            int u; int v;
+        }
+        else if (strcmp(cmd, "AddRight") == 0) {
+            int u, v;
             scanf("%d%d", &u, &v);
-            addRight(u,v,root);
-        } else if(strcmp(cmd, "InOrder") == 0) {
-            inOrder(root);
-            printf("\n");
-        } else if(strcmp(cmd,"PreOrder") == 0) {
-            preOrder(root);
-            printf("\n");
-        } else if(strcmp(cmd, "PostOrder") == 0) {
-            postOrder(root);
-            printf("\n");
+            addRight(u, v, root);
+        }
+        else if (strcmp(cmd, "PreOrder") == 0) {
+            int n = 0;
+            collectPre(root, a, &n);
+            printArray(a, n);
+        }
+        else if (strcmp(cmd, "InOrder") == 0) {
+            int n = 0;
+            collectIn(root, a, &n);
+            printArray(a, n);
+        }
+        else if (strcmp(cmd, "PostOrder") == 0) {
+            int n = 0;
+            collectPost(root, a, &n);
+            printArray(a, n);
         }
     }
     return 0;
